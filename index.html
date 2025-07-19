@@ -2,62 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web Development Task 1 - ApexPlanet</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Form & To-Do List</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #3cc1c0, #93c5fd);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 350px;
+    }
+
+    h3 {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    h3::before {
+      content: "📬";
+      margin-right: 10px;
+    }
+
+    label, input, textarea, button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    input, textarea {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #00bcd4;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00acc1;
+    }
+
+    .todo h3::before {
+      content: "📝";
+    }
+
+    .todo {
+      margin-top: 20px;
+    }
+
+    .todo-input {
+      display: flex;
+      gap: 10px;
+    }
+
+    .todo-input input {
+      flex: 1;
+    }
+
+    .todo-input button {
+      width: 70px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      background-color: #f0f0f0;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>🔧 Task 1: Web Development Basics</h1>
-    <h3>📍 Assigned by: ApexPlanet Software Private Solutions</h3>
+    <h3>Contact Us</h3>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea rows="3" id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">📩 Submit</button>
+    </form>
 
-    <section class="task-section">
-      <h2>📘 Objective</h2>
-      <p>Learn and apply foundational HTML, CSS, and JavaScript concepts.</p>
-    </section>
-
-    <section class="task-section">
-      <h2>📌 Steps Completed</h2>
-
-      <h3>1️⃣ Create a Simple Webpage Using HTML</h3>
-      <ul>
-        <li><strong>Objective:</strong> Understand basic HTML structure.</li>
-        <li><strong>Actions:</strong> Used headings, paragraphs, image, and link tags.</li>
-      </ul>
-
-      <h3>2️⃣ Style the Webpage Using CSS</h3>
-      <ul>
-        <li><strong>Objective:</strong> Apply custom styling using CSS.</li>
-        <li><strong>Actions:</strong> Added fonts, colors, spacing, and hover effects.</li>
-      </ul>
-
-      <h3>3️⃣ Add Basic JavaScript for Interactivity</h3>
-      <ul>
-        <li><strong>Objective:</strong> Implement simple JS interactions.</li>
-        <li><strong>Actions:</strong> Created a button that triggers an alert message.</li>
-      </ul>
-    </section>
-
-    <section class="task-section">
-      <h2>🔗 Company Website</h2>
-      <p>Visit: <a href="https://www.apexplanet.in/" target="_blank">www.apexplanet.in</a></p>
-    </section>
-
-    <section class="task-section">
-      <h2>🖼️ Company Logo</h2>
-      <img src="download.png" alt="ApexPlanet Logo" width="400" />
-    </section>
-
-    <section class="task-section">
-      <h2>🎯 Try the Interaction</h2>
-      <button id="clickBtn">Click Me</button>
-    </section>
+    <div class="todo">
+      <h3>To-Do List</h3>
+      <div class="todo-input">
+        <input type="text" id="taskInput" placeholder="Enter task" />
+        <button type="button" onclick="addTask()">Add</button>
+      </div>
+      <ul id="taskList"></ul>
+    </div>
   </div>
 
   <script>
-    document.getElementById("clickBtn").addEventListener("click", function () {
-      alert("JavaScript Working! Task 1 completed successfully.");
+    // Contact Form submission
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      alert(`Thank you, ${name}!\n\nEmail: ${email}\nMessage: ${message}`);
+
+      // Clear the form
+      this.reset();
     });
+
+    // To-Do List function
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+
+      if (taskText === "") {
+        alert("Please enter a task.");
+        return;
+      }
+
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      document.getElementById("taskList").appendChild(li);
+
+      taskInput.value = "";
+    }
   </script>
 </body>
 </html>
